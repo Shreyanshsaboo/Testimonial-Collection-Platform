@@ -186,8 +186,8 @@ export default function ProjectSettingsPage({ params }) {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="animate-spin text-white" size={40} />
       </div>
     )
   }
@@ -199,83 +199,83 @@ export default function ProjectSettingsPage({ params }) {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Project not found</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <p className="text-white">Project not found</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-4 py-4">
+      <nav className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-b border-white/5">
+        <div className="container mx-auto px-6 py-5">
           <Link 
             href={`/dashboard/projects/${params.id}`} 
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition"
+            className="inline-flex items-center gap-2 text-white hover:text-slate-300 transition font-semibold"
           >
             <ArrowLeft size={20} />
-            <span className="font-semibold">Back to Project</span>
+            <span>Back to Project</span>
           </Link>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-2">Project Settings</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">
+      <div className="container mx-auto px-6 py-10 max-w-4xl">
+        <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Project Settings</h1>
+        <p className="text-slate-400 text-base mb-8">
           Configure your project settings and customize the testimonial collection experience
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 rounded-xl mb-6 font-medium">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-5 py-4 rounded-xl mb-6 font-medium">
             {success}
           </div>
         )}
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-2 mb-6 border-b border-white/10">
           <button
             onClick={() => setActiveTab('basic')}
-            className={`px-6 py-3 font-semibold transition border-b-2 ${
+            className={`px-6 py-3 font-bold transition border-b-2 ${
               activeTab === 'basic'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'border-white text-white'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             Basic Info
           </button>
           <button
             onClick={() => setActiveTab('form')}
-            className={`px-6 py-3 font-semibold transition border-b-2 ${
+            className={`px-6 py-3 font-bold transition border-b-2 ${
               activeTab === 'form'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'border-white text-white'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             Form Settings
           </button>
           <button
             onClick={() => setActiveTab('widget')}
-            className={`px-6 py-3 font-semibold transition border-b-2 ${
+            className={`px-6 py-3 font-bold transition border-b-2 ${
               activeTab === 'widget'
-                ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'border-white text-white'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             Widget Design
           </button>
           <button
             onClick={() => setActiveTab('danger')}
-            className={`px-6 py-3 font-semibold transition border-b-2 ${
+            className={`px-6 py-3 font-bold transition border-b-2 ${
               activeTab === 'danger'
-                ? 'border-red-600 text-red-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'border-red-500 text-red-400'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             Danger Zone
@@ -285,17 +285,17 @@ export default function ProjectSettingsPage({ params }) {
         <form onSubmit={handleSubmit}>
           {/* Basic Info Tab */}
           {activeTab === 'basic' && (
-            <Card className="space-y-6">
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
               <div>
-                <h2 className="text-2xl font-semibold mb-4">Basic Information</h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Basic Information</h2>
+                <p className="text-slate-400 text-sm mb-6">
                   Update your project's basic details
                 </p>
               </div>
 
               <div>
-                <Label htmlFor="name">Project Name *</Label>
-                <Input
+                <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">Project Name *</label>
+                <input
                   id="name"
                   name="name"
                   value={formData.name}
@@ -355,7 +355,7 @@ export default function ProjectSettingsPage({ params }) {
               </div>
 
               <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={saving} className="flex items-center gap-2">
+                <button type="submit" disabled={saving} className="bg-white hover:bg-slate-100 disabled:bg-slate-600 disabled:cursor-not-allowed text-black font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]">
                   {saving ? (
                     <>
                       <Loader2 className="animate-spin" size={20} />
@@ -367,17 +367,17 @@ export default function ProjectSettingsPage({ params }) {
                       Save Changes
                     </>
                   )}
-                </Button>
+                </button>
               </div>
-            </Card>
+            </div>
           )}
 
           {/* Form Settings Tab */}
           {activeTab === 'form' && (
-            <Card className="space-y-6">
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
               <div>
-                <h2 className="text-2xl font-semibold mb-4">Form Collection Settings</h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Form Collection Settings</h2>
+                <p className="text-slate-400 text-sm mb-6">
                   Choose what information to collect from your customers
                 </p>
               </div>
@@ -481,7 +481,7 @@ export default function ProjectSettingsPage({ params }) {
               </div>
 
               <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={saving} className="flex items-center gap-2">
+                <button type="submit" disabled={saving} className="bg-white hover:bg-slate-100 disabled:bg-slate-600 disabled:cursor-not-allowed text-black font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]">
                   {saving ? (
                     <>
                       <Loader2 className="animate-spin" size={20} />
@@ -493,16 +493,16 @@ export default function ProjectSettingsPage({ params }) {
                       Save Changes
                     </>
                   )}
-                </Button>
+                </button>
               </div>
-            </Card>
+            </div>
           )}
 
           {/* Widget Design Tab */}
           {activeTab === 'widget' && (
-            <Card className="space-y-6">
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
               <div>
-                <h2 className="text-2xl font-semibold mb-4">Widget Design & Display</h2>
+                <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Widget Design & Display</h2>
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
                   Customize how testimonials appear on your website
                 </p>
@@ -662,7 +662,7 @@ export default function ProjectSettingsPage({ params }) {
               </div>
 
               <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={saving} className="flex items-center gap-2">
+                <button type="submit" disabled={saving} className="bg-white hover:bg-slate-100 disabled:bg-slate-600 disabled:cursor-not-allowed text-black font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]">
                   {saving ? (
                     <>
                       <Loader2 className="animate-spin" size={20} />
@@ -674,22 +674,20 @@ export default function ProjectSettingsPage({ params }) {
                       Save Changes
                     </>
                   )}
-                </Button>
-                <Link href={`/dashboard/projects/${params.id}/embed`}>
-                  <Button type="button" variant="secondary">
+                </button>
+                <Link href={`/dashboard/projects/${params.id}/embed`} className="bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-xl transition-all border border-white/10 hover:border-white/20">
                     Preview Widget
-                  </Button>
                 </Link>
               </div>
-            </Card>
+            </div>
           )}
 
           {/* Danger Zone Tab */}
           {activeTab === 'danger' && (
-            <Card className="border-2 border-red-200 dark:border-red-800">
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-2 border-red-500/20 rounded-2xl p-6 shadow-2xl">
               <div className="flex items-start gap-4 mb-6">
-                <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-lg">
-                  <AlertTriangle className="text-red-600 dark:text-red-400" size={24} />
+                <div className="bg-red-500/10 p-3 rounded-xl">
+                  <AlertTriangle className="text-red-400" size={24} />
                 </div>
                 <div>
                   <h2 className="text-2xl font-semibold text-red-600 dark:text-red-400 mb-2">
@@ -712,11 +710,11 @@ export default function ProjectSettingsPage({ params }) {
                   <li>The shareable form link</li>
                   <li>All widget configurations</li>
                 </ul>
-                <Button
+                <button
                   type="button"
                   onClick={handleDelete}
                   disabled={deleting}
-                  className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
+                  className="bg-red-500 hover:bg-red-600 disabled:bg-red-800 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all"
                 >
                   {deleting ? (
                     <>
@@ -729,9 +727,9 @@ export default function ProjectSettingsPage({ params }) {
                       Delete Project
                     </>
                   )}
-                </Button>
+                </button>
               </div>
-            </Card>
+            </div>
           )}
         </form>
       </div>

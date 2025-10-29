@@ -120,8 +120,8 @@ export default function ProjectDetailPage({ params }) {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="animate-spin text-white" size={40} />
       </div>
     )
   }
@@ -133,8 +133,8 @@ export default function ProjectDetailPage({ params }) {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Project not found</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <p className="text-white">Project not found</p>
       </div>
     )
   }
@@ -144,122 +144,118 @@ export default function ProjectDetailPage({ params }) {
     : testimonials.filter(t => t.status === filter)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition">
+      <nav className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-b border-white/5">
+        <div className="container mx-auto px-6 py-5">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-white hover:text-slate-300 transition font-semibold">
             <ArrowLeft size={20} />
-            <span className="font-semibold">Back to Dashboard</span>
+            <span>Back to Dashboard</span>
           </Link>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-6 py-10">
         {/* Project Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
-          <div className="flex justify-between items-start mb-4">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 mb-6 shadow-2xl">
+          <div className="flex justify-between items-start mb-5">
             <div>
-              <h1 className="text-4xl font-bold mb-2">{project.name}</h1>
+              <h1 className="text-4xl font-black text-white mb-2 tracking-tight">{project.name}</h1>
               {project.description && (
-                <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+                <p className="text-slate-400">{project.description}</p>
               )}
             </div>
             <Link href={`/dashboard/projects/${project._id}/settings`}>
-              <Button variant="secondary" className="flex items-center gap-2">
+              <button className="bg-white/5 hover:bg-white/10 text-white font-semibold py-2.5 px-5 rounded-xl transition-all border border-white/10 hover:border-white/20 flex items-center gap-2">
                 <SettingsIcon size={18} />
                 Settings
-              </Button>
+              </button>
             </Link>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <p className="text-3xl font-bold text-blue-600">{project.stats?.totalSubmissions || 0}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total</p>
+            <div className="text-center p-5 bg-black/40 rounded-xl border border-white/5">
+              <p className="text-3xl font-black text-white">{project.stats?.totalSubmissions || 0}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase font-semibold tracking-wider">Total</p>
             </div>
-            <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              <p className="text-3xl font-bold text-green-600">{project.stats?.approvedCount || 0}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Approved</p>
+            <div className="text-center p-5 bg-black/40 rounded-xl border border-white/5">
+              <p className="text-3xl font-black text-white">{project.stats?.approvedCount || 0}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase font-semibold tracking-wider">Approved</p>
             </div>
-            <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-              <p className="text-3xl font-bold text-orange-600">
+            <div className="text-center p-5 bg-black/40 rounded-xl border border-white/5">
+              <p className="text-3xl font-black text-white">
                 {(project.stats?.totalSubmissions || 0) - (project.stats?.approvedCount || 0) - (project.stats?.rejectedCount || 0)}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Pending</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase font-semibold tracking-wider">Pending</p>
             </div>
           </div>
 
           {/* Share Link */}
-          <div className="flex gap-2 flex-wrap">
-            <Button
+          <div className="flex gap-3 flex-wrap">
+            <button
               onClick={copyShareLink}
-              variant="primary"
-              className="flex items-center gap-2"
+              className="bg-white hover:bg-slate-100 text-black font-bold py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]"
             >
               <Copy size={18} />
               {copied ? 'Copied!' : 'Copy Share Link'}
-            </Button>
+            </button>
             <a
               href={`/submit/${project.shareId}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="bg-white/5 hover:bg-white/10 text-white font-semibold py-2.5 px-5 rounded-xl transition-all border border-white/10 hover:border-white/20 flex items-center gap-2"
             >
-              <Button variant="secondary" className="flex items-center gap-2">
-                <ExternalLink size={18} />
-                View Form
-              </Button>
+              <ExternalLink size={18} />
+              View Form
             </a>
-            <Link href={`/dashboard/projects/${project._id}/embed`}>
-              <Button variant="secondary" className="flex items-center gap-2">
-                <Copy size={18} />
-                Get Embed Code
-              </Button>
+            <Link href={`/dashboard/projects/${project._id}/embed`} className="bg-white/5 hover:bg-white/10 text-white font-semibold py-2.5 px-5 rounded-xl transition-all border border-white/10 hover:border-white/20 flex items-center gap-2">
+              <Copy size={18} />
+              Get Embed Code
             </Link>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Filter size={20} className="text-gray-600 dark:text-gray-400" />
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-5 mb-6 shadow-2xl">
+          <div className="flex items-center gap-3 flex-wrap">
+            <Filter size={20} className="text-slate-400" />
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-5 py-2.5 rounded-xl transition font-semibold ${
                 filter === 'all' 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  ? 'bg-white text-black shadow-lg' 
+                  : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
               }`}
             >
               All ({testimonials.length})
             </button>
             <button
               onClick={() => setFilter('pending')}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-5 py-2.5 rounded-xl transition font-semibold ${
                 filter === 'pending' 
-                  ? 'bg-orange-600 text-white' 
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  ? 'bg-white text-black shadow-lg' 
+                  : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
               }`}
             >
               Pending ({testimonials.filter(t => t.status === 'pending').length})
             </button>
             <button
               onClick={() => setFilter('approved')}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-5 py-2.5 rounded-xl transition font-semibold ${
                 filter === 'approved' 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  ? 'bg-white text-black shadow-lg' 
+                  : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
               }`}
             >
               Approved ({testimonials.filter(t => t.status === 'approved').length})
             </button>
             <button
               onClick={() => setFilter('rejected')}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-5 py-2.5 rounded-xl transition font-semibold ${
                 filter === 'rejected' 
-                  ? 'bg-red-600 text-white' 
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  ? 'bg-white text-black shadow-lg' 
+                  : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
               }`}
             >
               Rejected ({testimonials.filter(t => t.status === 'rejected').length})
@@ -268,16 +264,16 @@ export default function ProjectDetailPage({ params }) {
         </div>
 
         {/* Testimonials List */}
-        <div className="space-y-4">
+        <div className="space-y-5">
           {filteredTestimonials.length === 0 ? (
-            <Card className="p-12 text-center">
-              <Star size={64} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600 dark:text-gray-300">
+            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-16 text-center shadow-2xl">
+              <Star size={64} className="mx-auto text-slate-600 mb-4" strokeWidth={1.5} />
+              <p className="text-slate-400 text-lg">
                 {filter === 'all' 
                   ? 'No testimonials yet. Share your form link to start collecting!' 
                   : `No ${filter} testimonials.`}
               </p>
-            </Card>
+            </div>
           ) : (
             filteredTestimonials.map((testimonial) => (
               <TestimonialCard
@@ -297,30 +293,30 @@ export default function ProjectDetailPage({ params }) {
 
 function TestimonialCard({ testimonial, onStatusChange, onToggleFeatured, onDelete }) {
   const statusColors = {
-    pending: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-    approved: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-    rejected: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+    pending: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+    approved: 'bg-green-500/10 text-green-400 border-green-500/20',
+    rejected: 'bg-red-500/10 text-red-400 border-red-500/20',
   }
 
   return (
-    <Card className="p-6">
-      <div className="flex justify-between items-start mb-4">
+    <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-white/20 transition-all">
+      <div className="flex justify-between items-start mb-5">
         <div className="flex items-center gap-3">
-          <div className="bg-gradient-to-br from-blue-500 to-purple-500 rounded-full p-3">
-            <User size={24} className="text-white" />
+          <div className="bg-gradient-to-br from-white to-slate-300 rounded-2xl p-3 shadow-lg">
+            <User size={24} className="text-black" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-lg">{testimonial.name}</h3>
+              <h3 className="font-bold text-lg text-white">{testimonial.name}</h3>
               {testimonial.featured && (
-                <span className="text-yellow-500">⭐</span>
+                <span className="text-yellow-400 text-xl">⭐</span>
               )}
             </div>
             {testimonial.email && (
-              <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.email}</p>
+              <p className="text-sm text-slate-400">{testimonial.email}</p>
             )}
             {(testimonial.company || testimonial.position) && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+              <p className="text-sm text-slate-400 flex items-center gap-1">
                 {testimonial.position && <span>{testimonial.position}</span>}
                 {testimonial.position && testimonial.company && <span>at</span>}
                 {testimonial.company && <span>{testimonial.company}</span>}
@@ -328,29 +324,29 @@ function TestimonialCard({ testimonial, onStatusChange, onToggleFeatured, onDele
             )}
           </div>
         </div>
-        <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[testimonial.status]}`}>
+        <span className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide border ${statusColors[testimonial.status]}`}>
           {testimonial.status}
         </span>
       </div>
 
       {/* Rating */}
-      <div className="flex items-center gap-1 mb-3">
+      <div className="flex items-center gap-1 mb-4">
         {[...Array(5)].map((_, i) => (
           <Star
             key={i}
             size={18}
-            className={i < testimonial.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+            className={i < testimonial.rating ? 'fill-yellow-400 text-yellow-400' : 'text-slate-600'}
           />
         ))}
       </div>
 
       {/* Testimonial Text */}
-      <p className="text-gray-700 dark:text-gray-300 mb-4">
+      <p className="text-slate-300 mb-5 leading-relaxed">
         "{testimonial.testimonial}"
       </p>
 
       {/* Timestamp */}
-      <p className="text-xs text-gray-500 mb-4">
+      <p className="text-xs text-slate-500 mb-5">
         Submitted on {new Date(testimonial.createdAt).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
@@ -361,55 +357,50 @@ function TestimonialCard({ testimonial, onStatusChange, onToggleFeatured, onDele
       </p>
 
       {/* Actions */}
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-3 flex-wrap">
         {testimonial.status === 'pending' && (
           <>
-            <Button
-              variant="primary"
+            <button
               onClick={() => onStatusChange(testimonial._id, 'approved')}
-              className="flex items-center gap-2"
+              className="bg-white hover:bg-slate-100 text-black font-bold py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]"
             >
               <CheckCircle size={18} />
               Approve
-            </Button>
-            <Button
-              variant="secondary"
+            </button>
+            <button
               onClick={() => onStatusChange(testimonial._id, 'rejected')}
-              className="flex items-center gap-2 text-red-600 hover:text-red-700"
+              className="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 font-semibold py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all"
             >
               <XCircle size={18} />
               Reject
-            </Button>
+            </button>
           </>
         )}
         {testimonial.status === 'approved' && (
-          <Button
-            variant="secondary"
+          <button
             onClick={() => onToggleFeatured(testimonial._id, testimonial.featured)}
-            className="flex items-center gap-2"
+            className="bg-white/5 hover:bg-white/10 text-white font-semibold py-2.5 px-5 rounded-xl transition-all border border-white/10 hover:border-white/20 flex items-center gap-2"
           >
             {testimonial.featured ? '⭐ Unfeature' : '⭐ Feature'}
-          </Button>
+          </button>
         )}
         {testimonial.status === 'rejected' && (
-          <Button
-            variant="primary"
+          <button
             onClick={() => onStatusChange(testimonial._id, 'approved')}
-            className="flex items-center gap-2"
+            className="bg-white hover:bg-slate-100 text-black font-bold py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]"
           >
             <CheckCircle size={18} />
             Approve
-          </Button>
+          </button>
         )}
-        <Button
-          variant="ghost"
+        <button
           onClick={() => onDelete(testimonial._id)}
-          className="flex items-center gap-2 text-red-600 hover:text-red-700 ml-auto"
+          className="bg-white/5 hover:bg-red-500/10 text-red-400 border border-white/10 hover:border-red-500/20 font-semibold py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all ml-auto"
         >
           <Trash2 size={18} />
           Delete
-        </Button>
+        </button>
       </div>
-    </Card>
+    </div>
   )
 }

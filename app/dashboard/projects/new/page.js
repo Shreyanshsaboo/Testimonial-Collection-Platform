@@ -74,38 +74,38 @@ export default function NewProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition">
+      <nav className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-b border-white/5">
+        <div className="container mx-auto px-6 py-5">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-white hover:text-slate-300 transition font-semibold">
             <ArrowLeft size={20} />
-            <span className="font-semibold">Back to Dashboard</span>
+            <span>Back to Dashboard</span>
           </Link>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <h1 className="text-4xl font-bold mb-2">Create New Project</h1>
-        <p className="text-gray-600 dark:text-gray-300 mb-8">
+      <div className="container mx-auto px-6 py-10 max-w-3xl">
+        <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Create New Project</h1>
+        <p className="text-slate-400 text-base mb-8">
           Set up a new project to start collecting testimonials
         </p>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 rounded-xl mb-6 font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
-          <Card className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Basic Information</h2>
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <h2 className="text-2xl font-bold text-white mb-5 tracking-tight">Basic Information</h2>
             
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <Label htmlFor="name">Project Name *</Label>
-                <Input
+                <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">Project Name *</label>
+                <input
                   id="name"
                   name="name"
                   value={formData.name}
@@ -113,11 +113,12 @@ export default function NewProjectPage() {
                   placeholder="My Awesome Product"
                   required
                   maxLength={100}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition"
                 />
               </div>
 
               <div>
-                <Label htmlFor="description">Description</Label>
+                <label htmlFor="description" className="block text-sm font-semibold text-white mb-2">Description</label>
                 <textarea
                   id="description"
                   name="description"
@@ -126,16 +127,16 @@ export default function NewProjectPage() {
                   placeholder="Brief description of your project..."
                   rows={3}
                   maxLength={500}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition resize-none"
                 />
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs text-slate-500 mt-2">
                   {formData.description.length}/500 characters
                 </p>
               </div>
 
               <div>
-                <Label htmlFor="website">Website URL</Label>
-                <Input
+                <label htmlFor="website" className="block text-sm font-semibold text-white mb-2">Website URL</label>
+                <input
                   id="website"
                   name="website"
                   type="url"
@@ -143,93 +144,94 @@ export default function NewProjectPage() {
                   onChange={handleChange}
                   placeholder="https://example.com"
                   maxLength={200}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition"
                 />
               </div>
             </div>
-          </Card>
+          </div>
 
           {/* Form Settings */}
-          <Card className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Collection Settings</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl">
+            <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">Collection Settings</h2>
+            <p className="text-slate-400 text-sm mb-5">
               Choose what information to collect from your customers
             </p>
             
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer">
+            <div className="space-y-3.5">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="collectEmail"
                   checked={formData.collectEmail}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Collect Email Address</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Collect Email Address</span>
               </label>
 
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="collectCompany"
                   checked={formData.collectCompany}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Collect Company Name</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Collect Company Name</span>
               </label>
 
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="collectPosition"
                   checked={formData.collectPosition}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Collect Position/Title</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Collect Position/Title</span>
               </label>
 
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="allowPhoto"
                   checked={formData.allowPhoto}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Allow Photo Upload</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Allow Photo Upload</span>
               </label>
 
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="allowVideo"
                   checked={formData.allowVideo}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Allow Video Upload</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Allow Video Upload</span>
               </label>
 
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   name="requireApproval"
                   checked={formData.requireApproval}
                   onChange={handleChange}
-                  className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-5 h-5 rounded-lg border-white/20 bg-black/40 text-white focus:ring-white/30 focus:ring-2"
                 />
-                <span className="text-gray-900 dark:text-white">Require Manual Approval</span>
+                <span className="text-white font-medium group-hover:text-slate-200 transition">Require Manual Approval</span>
               </label>
             </div>
-          </Card>
+          </div>
 
           {/* Submit Button */}
           <div className="flex gap-4">
-            <Button
+            <button
               type="submit"
               disabled={loading || !formData.name}
-              className="flex items-center gap-2"
+              className="bg-white hover:bg-slate-100 disabled:bg-slate-600 disabled:cursor-not-allowed text-black font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-white/10 hover:shadow-white/20 hover:scale-[1.02]"
             >
               {loading ? (
                 <>
@@ -239,14 +241,14 @@ export default function NewProjectPage() {
               ) : (
                 'Create Project'
               )}
-            </Button>
-            <Button
+            </button>
+            <button
               type="button"
-              variant="secondary"
               onClick={() => router.push('/dashboard')}
+              className="bg-white/5 hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-xl transition-all border border-white/10 hover:border-white/20"
             >
               Cancel
-            </Button>
+            </button>
           </div>
         </form>
       </div>

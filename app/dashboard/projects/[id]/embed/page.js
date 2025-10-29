@@ -94,8 +94,8 @@ export default function WidgetEmbedPage({ params }) {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="animate-spin text-white" size={40} />
       </div>
     )
   }
@@ -107,31 +107,31 @@ export default function WidgetEmbedPage({ params }) {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Project not found</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <p className="text-white">Project not found</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="container mx-auto px-4 py-4">
+      <nav className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-b border-white/5">
+        <div className="container mx-auto px-6 py-5">
           <Link 
             href={`/dashboard/projects/${params.id}`} 
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition"
+            className="inline-flex items-center gap-2 text-white hover:text-slate-300 transition font-semibold"
           >
             <ArrowLeft size={20} />
-            <span className="font-semibold">Back to Project</span>
+            <span>Back to Project</span>
           </Link>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-6 py-10 max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Widget Embed Code</h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Widget Embed Code</h1>
+          <p className="text-slate-400 text-base">
             Copy and paste this code into your website to display testimonials
           </p>
         </div>

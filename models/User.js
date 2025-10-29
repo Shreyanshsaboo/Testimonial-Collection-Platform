@@ -35,6 +35,24 @@ const UserSchema = new mongoose.Schema({
     enum: ['free', 'pro', 'enterprise'],
     default: 'free',
   },
+  notificationSettings: {
+    emailOnNewTestimonial: {
+      type: Boolean,
+      default: true,
+    },
+    emailOnApproval: {
+      type: Boolean,
+      default: false,
+    },
+    emailWeeklyReport: {
+      type: Boolean,
+      default: true,
+    },
+    emailMonthlyReport: {
+      type: Boolean,
+      default: false,
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,

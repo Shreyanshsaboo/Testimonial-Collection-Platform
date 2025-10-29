@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Star, Loader2, CheckCircle, Upload } from 'lucide-react'
-import { Button, Input, Label } from '@/components/ui'
+import { Star, Loader2, CheckCircle, Upload, Sparkles } from 'lucide-react'
 
 export default function SubmitTestimonialPage({ params }) {
   const router = useRouter()
@@ -91,18 +90,18 @@ export default function SubmitTestimonialPage({ params }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <Loader2 className="animate-spin text-white" size={40} />
       </div>
     )
   }
 
   if (error && !project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-red-600 mb-4">Error</h1>
-          <p className="text-gray-600 dark:text-gray-300">{error}</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl p-8 text-center max-w-md shadow-2xl">
+          <h1 className="text-3xl font-black text-red-400 mb-4">Error</h1>
+          <p className="text-slate-300">{error}</p>
         </div>
       </div>
     )
@@ -110,14 +109,14 @@ export default function SubmitTestimonialPage({ params }) {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-        <div className="max-w-md w-full mx-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
-            <div className="bg-green-100 dark:bg-green-900/30 rounded-full p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-              <CheckCircle size={40} className="text-green-600 dark:text-green-400" />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+        <div className="max-w-md w-full">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl shadow-2xl p-8 text-center">
+            <div className="bg-green-500/10 rounded-full p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center border border-green-500/20">
+              <CheckCircle size={40} className="text-green-400" />
             </div>
-            <h1 className="text-3xl font-bold mb-4">Thank You!</h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <h1 className="text-3xl font-black text-white mb-4 tracking-tight">Thank You!</h1>
+            <p className="text-slate-300 mb-6 leading-relaxed">
               Your testimonial has been submitted successfully. 
               {project.formSettings?.requireApproval && 
                 ' It will be reviewed and published soon.'}
@@ -127,7 +126,7 @@ export default function SubmitTestimonialPage({ params }) {
                 href={project.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-700 font-semibold"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-slate-200 transition-all"
               >
                 Back to {project.name} →
               </a>
@@ -139,27 +138,27 @@ export default function SubmitTestimonialPage({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 py-12">
-      <div className="max-w-2xl mx-auto px-4">
+    <div className="min-h-screen bg-[#0a0a0a] py-12 px-4">
+      <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="text-center mb-10">
+          <h1 className="text-5xl font-black mb-3 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent tracking-tight">
             Share Your Experience
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
+          <p className="text-2xl text-white font-bold mb-2">
             {project.name}
           </p>
           {project.description && (
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <p className="text-slate-400 text-base leading-relaxed">
               {project.description}
             </p>
           )}
         </div>
 
         {/* Form */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-2xl shadow-2xl p-8">
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-6 font-semibold">
               {error}
             </div>
           )}
@@ -167,8 +166,10 @@ export default function SubmitTestimonialPage({ params }) {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}
             <div>
-              <Label htmlFor="name">Your Name *</Label>
-              <Input
+              <label htmlFor="name" className="block text-sm font-bold text-white mb-2">
+                Your Name *
+              </label>
+              <input
                 id="name"
                 name="name"
                 value={formData.name}
@@ -176,14 +177,17 @@ export default function SubmitTestimonialPage({ params }) {
                 placeholder="John Doe"
                 required
                 maxLength={100}
+                className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition font-medium"
               />
             </div>
 
             {/* Email */}
             {project.formSettings?.collectEmail && (
               <div>
-                <Label htmlFor="email">Email Address *</Label>
-                <Input
+                <label htmlFor="email" className="block text-sm font-bold text-white mb-2">
+                  Email Address *
+                </label>
+                <input
                   id="email"
                   name="email"
                   type="email"
@@ -191,6 +195,7 @@ export default function SubmitTestimonialPage({ params }) {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   required
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition font-medium"
                 />
               </div>
             )}
@@ -198,14 +203,17 @@ export default function SubmitTestimonialPage({ params }) {
             {/* Company */}
             {project.formSettings?.collectCompany && (
               <div>
-                <Label htmlFor="company">Company Name</Label>
-                <Input
+                <label htmlFor="company" className="block text-sm font-bold text-white mb-2">
+                  Company Name
+                </label>
+                <input
                   id="company"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Acme Inc."
                   maxLength={100}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition font-medium"
                 />
               </div>
             )}
@@ -213,22 +221,27 @@ export default function SubmitTestimonialPage({ params }) {
             {/* Position */}
             {project.formSettings?.collectPosition && (
               <div>
-                <Label htmlFor="position">Position/Title</Label>
-                <Input
+                <label htmlFor="position" className="block text-sm font-bold text-white mb-2">
+                  Position/Title
+                </label>
+                <input
                   id="position"
                   name="position"
                   value={formData.position}
                   onChange={handleChange}
                   placeholder="CEO"
                   maxLength={100}
+                  className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition font-medium"
                 />
               </div>
             )}
 
             {/* Rating */}
             <div>
-              <Label>Your Rating *</Label>
-              <div className="flex items-center gap-2 mt-2">
+              <label className="block text-sm font-bold text-white mb-3">
+                Your Rating *
+              </label>
+              <div className="flex items-center gap-3 mt-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
@@ -236,20 +249,20 @@ export default function SubmitTestimonialPage({ params }) {
                     onClick={() => setRating(star)}
                     onMouseEnter={() => setHoveredRating(star)}
                     onMouseLeave={() => setHoveredRating(0)}
-                    className="transition-transform hover:scale-110"
+                    className="transition-all hover:scale-110 focus:outline-none"
                   >
                     <Star
-                      size={36}
+                      size={40}
                       className={`${
                         star <= (hoveredRating || rating)
                           ? 'fill-yellow-400 text-yellow-400'
-                          : 'text-gray-300 dark:text-gray-600'
-                      }`}
+                          : 'text-white/20'
+                      } transition-colors`}
                     />
                   </button>
                 ))}
                 {rating > 0 && (
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">
+                  <span className="ml-2 text-slate-400 font-semibold">
                     {rating} star{rating !== 1 ? 's' : ''}
                   </span>
                 )}
@@ -258,7 +271,9 @@ export default function SubmitTestimonialPage({ params }) {
 
             {/* Testimonial */}
             <div>
-              <Label htmlFor="testimonial">Your Testimonial *</Label>
+              <label htmlFor="testimonial" className="block text-sm font-bold text-white mb-2">
+                Your Testimonial *
+              </label>
               <textarea
                 id="testimonial"
                 name="testimonial"
@@ -268,9 +283,9 @@ export default function SubmitTestimonialPage({ params }) {
                 rows={6}
                 maxLength={1000}
                 required
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition resize-none font-medium leading-relaxed"
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-slate-500 mt-2 font-semibold">
                 {formData.testimonial.length}/1000 characters
               </p>
             </div>
@@ -278,10 +293,12 @@ export default function SubmitTestimonialPage({ params }) {
             {/* Photo Upload Placeholder */}
             {project.formSettings?.allowPhoto && (
               <div>
-                <Label>Photo (Optional)</Label>
-                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
-                  <Upload size={32} className="mx-auto text-gray-400 mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                <label className="block text-sm font-bold text-white mb-2">
+                  Photo (Optional)
+                </label>
+                <div className="border-2 border-dashed border-white/10 rounded-xl p-8 text-center hover:border-white/20 transition cursor-pointer bg-black/20">
+                  <Upload size={32} className="mx-auto text-slate-400 mb-2" />
+                  <p className="text-sm text-slate-400 font-semibold">
                     Photo upload coming soon
                   </p>
                 </div>
@@ -289,10 +306,10 @@ export default function SubmitTestimonialPage({ params }) {
             )}
 
             {/* Submit Button */}
-            <Button
+            <button
               type="submit"
               disabled={submitting || rating === 0}
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full px-6 py-4 bg-white text-black font-black text-lg rounded-xl hover:bg-slate-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-white/20"
             >
               {submitting ? (
                 <>
@@ -300,14 +317,17 @@ export default function SubmitTestimonialPage({ params }) {
                   Submitting...
                 </>
               ) : (
-                'Submit Testimonial'
+                <>
+                  <Sparkles size={20} />
+                  Submit Testimonial
+                </>
               )}
-            </Button>
+            </button>
           </form>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+        <p className="text-center text-sm text-slate-500 mt-8 font-semibold">
           Powered by Testimonial Platform
         </p>
       </div>

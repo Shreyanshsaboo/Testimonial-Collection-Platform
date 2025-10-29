@@ -13,25 +13,35 @@ export const authOptions = {
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
+        console.log('🔐 Authorization attempt for:', credentials?.email)
+        
         if (!credentials?.email || !credentials?.password) {
+          console.error('❌ Missing credentials')
           throw new Error('Please provide email and password')
         }
 
         await connectDB()
+        console.log('✅ Database connected')
 
         // Find user with password field
         const user = await User.findOne({ email: credentials.email }).select('+password')
 
         if (!user) {
+          console.error('❌ User not found:', credentials.email)
           throw new Error('No user found with this email')
         }
+
+        console.log('👤 User found:', user.email)
 
         // Check password
         const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
 
         if (!isPasswordValid) {
+          console.error('❌ Invalid password for:', credentials.email)
           throw new Error('Invalid password')
         }
+
+        console.log('✅ Password valid, login successful')
 
         return {
           id: user._id.toString(),
@@ -70,6 +80,7 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development',
 }
 
 const handler = NextAuth(authOptions)
