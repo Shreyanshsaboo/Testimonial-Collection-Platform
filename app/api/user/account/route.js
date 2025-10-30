@@ -14,18 +14,13 @@ export async function DELETE() {
     }
 
     await dbConnect()
-
-    // Delete all user's projects
     const userProjects = await Project.find({ userId: session.user.id })
     const projectIds = userProjects.map(p => p._id)
 
-    // Delete all testimonials for user's projects
     await Testimonial.deleteMany({ projectId: { $in: projectIds } })
 
-    // Delete all projects
     await Project.deleteMany({ userId: session.user.id })
 
-    // Delete user account
     await User.findByIdAndDelete(session.user.id)
 
     return NextResponse.json({
