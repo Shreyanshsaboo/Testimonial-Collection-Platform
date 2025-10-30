@@ -24,9 +24,7 @@ export default function SettingsPage() {
   // Profile settings
   const [profileData, setProfileData] = useState({
     name: '',
-    email: '',
-    currentName: '',
-    currentEmail: ''
+    currentName: ''
   })
 
   // Password settings
@@ -48,9 +46,7 @@ export default function SettingsPage() {
     if (status === 'authenticated' && session?.user) {
       setProfileData({
         name: session.user.name || '',
-        email: session.user.email || '',
-        currentName: session.user.name || '',
-        currentEmail: session.user.email || ''
+        currentName: session.user.name || ''
       })
       fetchNotificationSettings()
       setLoading(false)
@@ -93,8 +89,7 @@ export default function SettingsPage() {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: profileData.name,
-          email: profileData.email
+          name: profileData.name
         })
       })
 
@@ -104,16 +99,14 @@ export default function SettingsPage() {
         setMessage({ type: 'success', text: 'Profile updated successfully!' })
         setProfileData(prev => ({
           ...prev,
-          currentName: prev.name,
-          currentEmail: prev.email
+          currentName: prev.name
         }))
         // Update session
         await update({
           ...session,
           user: {
             ...session.user,
-            name: profileData.name,
-            email: profileData.email
+            name: profileData.name
           }
         })
       } else {
@@ -231,8 +224,7 @@ export default function SettingsPage() {
     }
   }
 
-  const hasProfileChanges = profileData.name !== profileData.currentName || 
-                           profileData.email !== profileData.currentEmail
+  const hasProfileChanges = profileData.name !== profileData.currentName
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
@@ -325,19 +317,7 @@ export default function SettingsPage() {
                       />
                     </div>
 
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-bold text-white mb-2">
-                        Email Address
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        value={profileData.email}
-                        onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                        className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-white/30 focus:outline-none transition font-medium"
-                        required
-                      />
-                    </div>
+                    {/* Email removed from Profile UI by request */}
 
                     <button
                       type="submit"

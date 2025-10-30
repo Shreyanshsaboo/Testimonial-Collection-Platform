@@ -14,22 +14,26 @@ export async function PATCH(request) {
     await dbConnect()
     const { name, email } = await request.json()
 
-    // Validate inputs
-    if (!name || !email) {
-      return NextResponse.json({ error: 'Name and email are required' }, { status: 400 })
+    // Validate inputs: name is required, email is optional
+    if (!name) {
+      return NextResponse.json({ error: 'Name is required' }, { status: 400 })
     }
 
-    // Check if email is already taken by another user
-    if (email !== session.user.email) {
+    // Prepare update payload
+    const updateData = { name }
+
+    // If an email is provided, validate uniqueness before updating
+    if (email && email !== session.user.email) {
       const existingUser = await User.findOne({ email, _id: { $ne: session.user.id } })
       if (existingUser) {
         return NextResponse.json({ error: 'Email already in use' }, { status: 400 })
       }
+      updateData.email = email
     }
 
     const user = await User.findByIdAndUpdate(
       session.user.id,
-      { name, email },
+      updateData,
       { new: true }
     )
 

@@ -60,6 +60,25 @@ export default function SubmitTestimonialPage({ params }) {
       return
     }
 
+    // Client-side name validation: disallow numbers and special characters
+    const nameTrimmed = formData.name.trim()
+    if (nameTrimmed.length === 0) {
+      setError('Name is required')
+      return
+    }
+    const nameValid = /^[\p{L} ]+$/u.test(nameTrimmed)
+    if (!nameValid) {
+      setError('Name cannot contain numbers or special characters')
+      return
+    }
+
+    // Client-side testimonial character-length validation: require at least 4 characters
+    const testimonialTrimmed = formData.testimonial.trim()
+    if (testimonialTrimmed.length > 0 && testimonialTrimmed.length < 4) {
+      setError('Description must contain at least 4 characters')
+      return
+    }
+
     setSubmitting(true)
     setError('')
 
@@ -78,7 +97,15 @@ export default function SubmitTestimonialPage({ params }) {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit testimonial')
+        // Show validation details from server if present
+        if (data && data.details && Array.isArray(data.details)) {
+          const messages = data.details.map((d) => d.message).filter(Boolean)
+          setError(messages.join('. '))
+        } else {
+          setError(data.error || 'Failed to submit testimonial')
+        }
+        setSubmitting(false)
+        return
       }
 
       setSubmitted(true)

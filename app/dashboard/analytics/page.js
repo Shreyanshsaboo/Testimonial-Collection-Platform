@@ -161,12 +161,12 @@ export default function AnalyticsPage() {
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
-            className="px-4 py-2.5 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-xl text-white font-semibold focus:border-white/30 focus:outline-none transition"
+            className="px-4 py-2.5 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-white/10 rounded-xl text-black dark:text-white font-semibold focus:border-white/30 focus:outline-none transition"
           >
-            <option value="7">Last 7 days</option>
-            <option value="30">Last 30 days</option>
-            <option value="90">Last 90 days</option>
-            <option value="365">Last year</option>
+              <option className="text-black dark:text-white" value="7">Last 7 days</option>
+              <option className="text-black dark:text-white" value="30">Last 30 days</option>
+              <option className="text-black dark:text-white" value="90">Last 90 days</option>
+              <option className="text-black dark:text-white" value="365">Last year</option>
           </select>
         </div>
 

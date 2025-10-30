@@ -171,7 +171,7 @@ export default function WidgetEmbedPage({ params }) {
               <div>
                 <h3 className="font-semibold mb-1">Customize your widget</h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Go to <Link href={`/dashboard/projects/${params.id}/settings`} className="text-blue-600 hover:underline">widget settings</Link> to change colors, layout, and display options
+                  Go to <Link href={`/dashboard/projects/${params.id}/settings?tab=widget`} className="text-blue-600 hover:underline">widget settings</Link> to change colors, layout, and display options
                 </p>
               </div>
             </div>

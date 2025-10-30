@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { 
-  ArrowLeft, Loader2, Save, Trash2, AlertTriangle 
+  ArrowLeft, Loader2, Save, Trash2, AlertTriangle, X
 } from 'lucide-react'
 import { Button, Input, Label, Card } from '@/components/ui'
 
@@ -19,6 +19,8 @@ export default function ProjectSettingsPage({ params }) {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [activeTab, setActiveTab] = useState('basic')
+
+  const searchParams = useSearchParams()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -49,6 +51,18 @@ export default function ProjectSettingsPage({ params }) {
       fetchProject()
     }
   }, [status, params.id])
+
+  // If a ?tab= value is present in the URL, switch to that tab (e.g. ?tab=widget)
+  useEffect(() => {
+    try {
+      const tab = searchParams?.get?.('tab')
+      if (tab && ['basic', 'form', 'widget', 'danger'].includes(tab)) {
+        setActiveTab(tab)
+      }
+    } catch (err) {
+      // ignore
+    }
+  }, [searchParams])
 
   const fetchProject = async () => {
     try {
@@ -146,8 +160,7 @@ export default function ProjectSettingsPage({ params }) {
         throw new Error(data.error || 'Failed to update project')
       }
 
-      setSuccess('Project updated successfully!')
-      setTimeout(() => setSuccess(''), 3000)
+  setSuccess('Project updated successfully!')
     } catch (err) {
       setError(err.message)
     } finally {
@@ -233,8 +246,16 @@ export default function ProjectSettingsPage({ params }) {
         )}
 
         {success && (
-          <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-5 py-4 rounded-xl mb-6 font-medium">
-            {success}
+          <div className="bg-green-500/10 border border-green-500/20 text-green-400 px-5 py-4 rounded-xl mb-6 font-medium flex items-start justify-between gap-4">
+            <div className="flex-1">{success}</div>
+            <button
+              type="button"
+              onClick={() => setSuccess('')}
+              className="text-green-400 hover:text-white"
+              aria-label="Close"
+            >
+              <X />
+            </button>
           </div>
         )}
 
@@ -295,9 +316,10 @@ export default function ProjectSettingsPage({ params }) {
 
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">Project Name *</label>
-                <input
+                <Input
                   id="name"
                   name="name"
+                  type="text"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="My Awesome Product"

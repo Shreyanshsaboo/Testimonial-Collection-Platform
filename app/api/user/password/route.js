@@ -30,7 +30,8 @@ export async function PATCH(request) {
       )
     }
 
-    const user = await User.findById(session.user.id)
+    // Include password field (it's stored with select: false in the schema)
+    const user = await User.findById(session.user.id).select('+password')
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
@@ -40,6 +41,14 @@ export async function PATCH(request) {
     if (!isValidPassword) {
       return NextResponse.json(
         { error: 'Current password is incorrect' },
+        { status: 400 }
+      )
+    }
+
+    // Ensure new password is different from current password
+    if (currentPassword === newPassword) {
+      return NextResponse.json(
+        { error: 'New password must be different from the current password' },
         { status: 400 }
       )
     }

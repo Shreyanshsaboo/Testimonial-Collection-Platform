@@ -3,12 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Mail, Lock, User, Building2, ArrowRight } from 'lucide-react'
+import { Mail, Lock, User, Building2, ArrowRight, Eye, EyeOff } from 'lucide-react'
 
 export default function SignUpPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -34,12 +35,20 @@ export default function SignUpPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong')
+        // If server returned Zod validation details, show those messages
+        if (data && data.details && Array.isArray(data.details)) {
+          const messages = data.details.map((d) => d.message).filter(Boolean)
+          setError(messages.join('. '))
+        } else {
+          setError(data.error || 'Something went wrong')
+        }
+        setLoading(false)
+        return
       }
 
       router.push('/auth/signin?registered=true')
     } catch (err) {
-      setError(err.message)
+      setError(err.message || 'Something went wrong')
       setLoading(false)
     }
   }
@@ -159,7 +168,7 @@ export default function SignUpPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   required
@@ -167,6 +176,14 @@ export default function SignUpPage() {
                   minLength={6}
                   className="w-full pl-10 pr-4 py-3 bg-black border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((s) => !s)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
               <p className="text-xs text-slate-600 mt-1">At least 6 characters</p>
             </div>
