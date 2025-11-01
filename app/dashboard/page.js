@@ -102,6 +102,7 @@ export default function DashboardPage() {
         {/* Navigation */}
         <nav className="flex-1 p-4">
           <div className="space-y-1.5">
+            <NavItem icon={<Layout size={18} />} label="Home" onClick={() => router.push('/')} />
             <NavItem icon={<Home size={18} />} label="Dashboard" active onClick={() => router.push('/dashboard')} />
             <NavItem icon={<MessageSquare size={18} />} label="Testimonials" onClick={() => router.push('/dashboard/testimonials')} />
             <NavItem icon={<BarChart3 size={18} />} label="Analytics" onClick={() => router.push('/dashboard/analytics')} />

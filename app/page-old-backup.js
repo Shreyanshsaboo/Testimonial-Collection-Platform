@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { ArrowRight, Star, MessageSquare, CheckCircle, Users, ChevronLeft, ChevronRight, Zap, Code, Sparkles } from 'lucide-react'
+import { ArrowRight, Star, MessageSquare, CheckCircle, Users, ChevronLeft, ChevronRight, Zap, Code, Sparkles, Eye, Share2, BarChart3, Shield } from 'lucide-react'
 
 // Sample testimonials for different formats
 const testimonialFormats = [
@@ -70,46 +70,13 @@ const testimonialFormats = [
 
 export default function Home() {
   const { data: session, status } = useSession()
-  const [currentFormat, setCurrentFormat] = useState(0)
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
+  const [scrollY, setScrollY] = useState(0)
 
-  const nextFormat = () => {
-    setCurrentFormat((prev) => (prev + 1) % testimonialFormats.length)
-  }
-
-  const prevFormat = () => {
-    setCurrentFormat((prev) => (prev - 1 + testimonialFormats.length) % testimonialFormats.length)
-  }
-
-  // Handle touch events for swipe
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > 50
-    const isRightSwipe = distance < -50
-    
-    if (isLeftSwipe) {
-      nextFormat()
-    }
-    if (isRightSwipe) {
-      prevFormat()
-    }
-    
-    setTouchStart(0)
-    setTouchEnd(0)
-  }
-
-  const currentTestimonials = testimonialFormats[currentFormat]
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   
   return (
     <main className="min-h-screen bg-black dark:bg-black">
