@@ -35,10 +35,6 @@ export async function clearTestDB() {
     await collections[key].deleteMany({})
   }
 }
-
-/**
- * Create a mock Request object for API route testing
- */
 export function createMockRequest(url, method = 'GET', body = null) {
   const request = new Request(url, {
     method,

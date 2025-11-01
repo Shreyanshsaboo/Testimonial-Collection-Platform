@@ -1,7 +1,3 @@
-/**
- * Security and Authorization Tests
- * Ensures unauthorized access is rejected and users can't manipulate other users' data
- */
 
 import { PATCH as profilePatch } from '@/app/api/user/profile/route'
 import { PATCH as passwordPatch } from '@/app/api/user/password/route'
